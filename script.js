@@ -22,11 +22,44 @@ function addName() {
   // - https://www.w3schools.com/jsref/prop_node_innertext.asp
 
   let nameElement = document.querySelector('#name');
-  nameElement.innerText = 'See script.js!';
+  nameElement.innerText = 'Ha Vu';
 }
 
 function addFavoriteThings() {
   console.log('Called addFavoriteThings()');
+  let favoriteThings = document.querySelector('#favthings');
+  console.log(favoriteThings);
+  /*favoriteThings.innerHTML = `
+  <li>Coding</li>
+  <li>Sleeping</li>
+  <li>Watching Netflix</li>
+  <li>Video Games</li>
+  <li>Swimming</li>`;*/ 
+
+  let favThingsList = ['Coding','Sleeping','Watching Netflix','Video Games','Swimming'];
+  
+  /*for(let thing of favThingsList){
+    console.log(thing);
+    let li = document.createElement('li');
+    li.innerText = thing;
+    favoriteThings.appendChild(li); 
+  }*/
+
+  let li1 = document.createElement('li');
+  li1.innerText = 'Eating';
+  favoriteThings.appendChild(li1);
+
+  let li2 = document.createElement('li');
+  li2.innerText = 'Shopping';
+  favoriteThings.appendChild(li2);
+
+  let li3 = document.createElement('li');
+  li3.innerHTML = '<strong>Running</strong>';
+  favoriteThings.appendChild(li3);
+
+  let li4 = document.createElement('li');
+  li4.textContent = 'Smiling';
+  favoriteThings.appendChild(li4);
 
   // 1. Get a reference to <ul id="favthings">
   // 2. Create a few list items representing your favorite things
@@ -40,6 +73,9 @@ function addFavoriteThings() {
 
 function replaceImage() {
   console.log('Called replaceImage()');
+  let image = document.querySelector("#picture");
+  console.log(image);
+  image.setAttribute("src","pusheen.png");
 
   // Change the puppy picture to a picture of your choosing
 
@@ -50,6 +86,11 @@ function replaceImage() {
 
 function changeCodeStatus() {
   console.log('Called changeCodeStatus()');
+  let codeStatus = document.querySelector("#codestatus");
+  /*let newImg  = document.createElement('img');
+  newImg.setAttribute('src','https://media.giphy.com/media/spHCUbRqG4cjS/giphy.gif');
+  codeStatus.appendChild(newImg);*/
+  codeStatus.innerHTML = `<img src="https://media.giphy.com/media/spHCUbRqG4cjS/giphy.gif">`;
 
   // 1. Get a reference to <div id="codestatus">
   // 2. Create image element containing a sweet ol' meme
@@ -85,10 +126,36 @@ showInfoButton.addEventListener('click', function() {
 let informationForm = document.querySelector('#information-form');
 
 // Do something when form is submitted
+
 informationForm.addEventListener('submit', function(event) {
   event.preventDefault(); // You will want this here. Remove it and see what changes.
-
   console.log('Form submitted');
+
+  let fnameByIndex = informationForm[0].value;
+  let lnameByIndex = informationForm[1].value;
+  let carsByIndex = informationForm[2].value;
+  document.querySelector('#firstname').innerHTML = fnameByIndex;
+  document.querySelector('#lastname').innerHTML = lnameByIndex;
+  document.querySelector('#chosencar').innerHTML = carsByIndex;
+
+  if (document.getElementById('icecreamyes').checked) {
+    icecreamValue = document.getElementById('icecreamyes').value;
+    document.querySelector('#icecreamstatus').innerHTML = icecreamValue;
+  }
+  else{
+    icecreamValue = document.getElementById('icecreamno').value;
+    document.querySelector('#icecreamstatus').innerHTML = icecreamValue;
+  }
+
+  humancheckValue = document.getElementById('humancheck').checked;
+  codercheckValue = document.getElementById('codercheck').checked;
+
+  document.querySelector('#checks').innerHTML = `
+  <div>This person is a human: ${humancheckValue}</div>
+  <div>This person is a coder: ${codercheckValue}</div>
+  `;
+  /*let icecream = document.getElementsByName('icecream')[1].value;
+  console.log(icecream);*/
 
   // Your job:
   //   1. Get information typed into the form
@@ -111,15 +178,18 @@ informationForm.addEventListener('submit', function(event) {
 // then log something to the console
 
 // Fill in ________ to get a reference to the correct button on the page
-let consoleLogButton = document.querySelector('#________');
+let consoleLogButton = document.querySelector('#console-log-button');
 
 // Log something when that button is clicked
 consoleLogButton.addEventListener('click', function() {
   console.log('Change this text if you want!');
 });
 
-let makeBlueButton = document.querySelector('#________');
+let makeBlueButton = document.querySelector('#make-blue-button');
 makeBlueButton.addEventListener('click', function() {
+  let colorText = document.querySelector('#colorText');
+  colorText.style.color = "blue";
+  colorText.style.backgroundColor = "red";
   // Your job:
   //  1. When a user clicks "Change the text to the right blue"
   //  2. Change the text in <div id="colorText">...</div> to blue
@@ -127,7 +197,11 @@ makeBlueButton.addEventListener('click', function() {
 
 // Adding an event listener to document means the "keydown" event
 // can happen anywhere on the page and we'll respond.
-document.addeventListener('keydown', function() {
+document.addEventListener('keydown', function(event) {
+  console.log(event.code);
+  if(event.code == 'KeyR'){
+    document.querySelector('#colorText').style.color = 'red';
+  }
   // This is called whenever a user pressed any key.
 
   // Your job:
@@ -155,6 +229,17 @@ document.addeventListener('keydown', function() {
  */
 
 // Your code goes here
+
+let toDoListForm = document.querySelector(".form");
+
+toDoListForm.addEventListener('submit', function(event){
+  event.preventDefault();
+  let toDoItem = document.querySelector('#todo').value;
+  let ul = document.querySelector('#todos');
+  let li = document.createElement('li');
+  li.innerText = toDoItem;
+  ul.appendChild(li);
+});
 
 /****************************************
  * Section 5 - setInterval + setTimeout *
